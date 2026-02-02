@@ -6,27 +6,27 @@ import json
 
 class ArxivIngestor:
   def __init__(self):
-        self.client = arxiv.Client()
+    self.client = arxiv.Client()
 
   def clean_text(self, text):
-      """
-      Simulates 'cleaning messy data'. 
-      Removes LaTeX math, newlines, and extra spaces.
-      """
-      if not text:
-          return ""
-      
-      # 1. Replace newlines with spaces
-      text = text.replace('\n', ' ')
-      
-      # 2. Remove LaTeX math patterns (anything between $...$)
-      # This is crucial for NLP - math symbols are noise for semantic understanding
-      text = re.sub(r'\$.*?\$', '', text)
-      
-      # 3. Remove multiple spaces resulting from the above
-      text = re.sub(r'\s+', ' ', text).strip()
-      
-      return text
+    """
+    Simulates 'cleaning messy data'. 
+    Removes LaTeX math, newlines, and extra spaces.
+    """
+    if not text:
+        return ""
+    
+    # 1. Replace newlines with spaces
+    text = text.replace('\n', ' ')
+    
+    # 2. Remove LaTeX math patterns (anything between $...$)
+    # This is crucial for NLP - math symbols are noise for semantic understanding
+    text = re.sub(r'\$.*?\$', '', text)
+    
+    # 3. Remove multiple spaces resulting from the above
+    text = re.sub(r'\s+', ' ', text).strip()
+    
+    return text
   
   def fetch_papers(self, query="cat:cs.AI", max_results=100):
     """
@@ -71,5 +71,5 @@ if __name__ == "__main__":
     print("\n--- Data Sample ---")
     print(df[['raw_abstract', 'clean_abstract']].head(1))
 
-    df.to_csv("arxiv_data.csv", index=False)
-    print(f"\nSaved {len(df)} papers to arxiv_data.csv")
+    df.to_csv("arxiv_cleaned.csv", index=False)
+    print(f"\nSaved {len(df)} papers to arxiv_cleaned.csv")
