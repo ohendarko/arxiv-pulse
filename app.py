@@ -4,8 +4,8 @@ import torch
 from transformers import AutoTokenizer, AutoModel, AutoModelForSeq2SeqLM
 import os
 import os
-st.write("Current Working Directory:", os.getcwd())
-st.write("Files in Directory:", os.listdir())
+# st.write("Current Working Directory:", os.getcwd())
+# st.write("Files in Directory:", os.listdir())
 
 # --- PAGE CONFIG ---
 st.set_page_config(page_title="ArXiv Pulse", page_icon="🔬")
