@@ -15,7 +15,8 @@ st.write("Search for papers and get AI-generated insights.")
 def load_models():
     # 1. Load Data
     if not os.path.exists('arxiv_cleaned.csv') or not os.path.exists('arxiv_embeddings.pt'):
-        return None, None, None, None, None
+        # FIX: Return 6 Nones to match the 6 variables below
+        return None, None, None, None, None, None 
     
     df = pd.read_csv('arxiv_cleaned.csv')
     paper_embeddings = torch.load('arxiv_embeddings.pt', map_location=torch.device('cpu'))
