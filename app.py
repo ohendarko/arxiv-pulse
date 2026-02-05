@@ -69,10 +69,10 @@ else:
             
             # Display Result
             st.success(f"**Best Match:** {best_paper['title']}")
-            st.write(f"**Abstract:** {best_paper['abstract'][:300]}...") # Show first 300 chars
+            st.write(f"**Abstract:** {best_paper['clean_abstract'][:300]}...") # Show first 300 chars
             
             # Generation
             st.markdown("---")
             st.write("🤖 **AI Insight:**")
-            insight = generate_insight(query, best_paper['title'], best_paper['abstract'], gen_tok, gen_model)
+            insight = generate_insight(query, best_paper['title'], best_paper['clean_abstract'], gen_tok, gen_model)
             st.info(insight)
