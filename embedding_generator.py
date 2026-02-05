@@ -6,7 +6,7 @@ import os
 
 # --- CONFIGURATION ---
 INPUT_FILE = 'arxiv_cleaned.csv'
-OUTPUT_FILE = 'arxiv_embeddigs.pt'
+OUTPUT_FILE = 'arxiv_embeddings.pt'
 MODEL_NAME = 'sentence-transformers/all-MiniLM-L6-v2'
 BATCH_SIZE = 32
 
@@ -77,6 +77,17 @@ if __name__ == "__main__":
     else:
         # Load Data
         df = pd.read_csv(INPUT_FILE)
+
+        # DEBUG: Print the actual columns found so we can see what's happening
+        print(f"Loaded columns: {df.columns.tolist()}")
+
+        # 1. Handle Column Name Mismatch
+        if 'abstract' not in df.columns:
+            if 'clean_abstract' in df.columns:
+                print("Found 'clean_abstract' instead of 'abstract'. Renaming...")
+                df.rename(columns={'clean_abstract': 'abstract'}, inplace=True)
+            else:
+                raise KeyError(f"Could not find 'abstract' column. Available columns: {df.columns.tolist()}")
         
         # Ensure no empty values crash the model
         df['abstract'] = df['abstract'].fillna("No abstract available")
